@@ -15,14 +15,8 @@ Project Title: Hospital Database
 
 
 
-## I. Entity-Relationship Diagram: 
 
-file with Big ER: [hospital_er.erd](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_er.erd)
-
-<img width="928" alt="ER_Diagram" src="https://user-images.githubusercontent.com/73262017/233680415-ea2569f6-430d-4a7e-b110-0fcfff11d704.png">
-
-
-## II. Relational Schema for hospital database 
+## Relational Schema for hospital database 
 
 --- Primary Keys are in _Italic_
 
@@ -69,8 +63,3 @@ Therefore, the schema is not in BCNF because of the functional dependencies {pat
 
 
 
-## III. Transaction and Query Executions
-
-1. File for DDL: [hospital_ddl.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_ddl.sql)
-2. File for DML: [hospital_seed.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_seed.sql)
-3. File with Queries: [hospital_quries.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_quries.sql)
