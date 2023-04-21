@@ -8,6 +8,9 @@ Project Title: Hospital Database
 
 file with Big ER: [hospital_er.erd](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_er.erd)
 
+<img width="928" alt="ER_Diagram" src="https://user-images.githubusercontent.com/73262017/233680415-ea2569f6-430d-4a7e-b110-0fcfff11d704.png">
+
+
 ## II. Relational Schema for hospital database 
 
 --- Primary Keys are in _Italic_
