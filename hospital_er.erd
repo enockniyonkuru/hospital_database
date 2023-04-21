@@ -1,7 +1,6 @@
 // ER Model
 erdiagram Hospital
 
-
 notation=default
 
 // Entities
@@ -75,35 +74,43 @@ nurse_name: VARCHAR(255)
 
 // Relationships
 
+// Many-many relationship
 relationship Attends {
 Patient[N] -> Doctor[N]
 }
 
+// One-one relationship
 relationship AssignedTo {
 Room[1] -> Inpatient[1]
 }
 
+// Many-many relationship
 relationship Visits {
 Patient[N] -> Outpatient[N]
 }
 
+// One-one relationship
 relationship Admitted {
 Patient[1] -> Inpatient[1]
 }
 
+// Many-many relationship
 relationship Charged {
 Patient[N] -> Bill[N]
 }
 
+// Many-one relaitonship
 relationship Prescribed {
 Prescription[N] -> Patient[1] -> Doctor[1]
 points: DOUBLE
 }
 
+// One-one relationship
 relationship Work {
 Doctor[1] -> Department[1]
 }
 
+// Many-one relationship
 weak relationship Assists {
 Nurse[N] -> Patient[1]
 }
@@ -126,39 +133,3 @@ Department[1] -> Room[N]
 
 
 
-// // Composite and multi-valued attribute
-// attribute Medical_History {
-// patient_id: INT
-// disease: VARCHAR(100)
-// symptom: VARCHAR(100)
-// treatment: VARCHAR(100) multi-value
-// }
-
-// // Descriptive attribute
-// attribute Room_Facilities {
-// room_no: INT
-// facilities: VARCHAR(255) multi-value
-// }
-
-
-// Cardinality of relationships
-// Attends: Many-to-Many
-// AssignedTo: One-to-One
-// Visits: Many-to-Many
-// Admitted: One-to-One
-// Charged: Many-to-Many
-// Prescribed: Many-to-One
-// Work: Many-to-One
-// Assists: One-to-Many
-// Consultation: Many-to-Many
-// Room_Belong_To: Many-to-One
-// Department_Manages: One-to-Many
-
-
-// Explanation of the updated ER diagram:
-
-// Added a weak entity set Nurse to the schema.
-// Added the composite and multi-valued attribute Medical_History to Patient entity.
-// Added the many-many relationship Consultation between Doctor and Patient entities, with a descriptive attribute note.
-// Added the descriptive attribute Room_Facilities to Room entity.
-// Added the many-one relationship Room
