@@ -1,7 +1,7 @@
 // ER Model
 erdiagram Hospital
 
-// Options
+
 notation=default
 
 // Entities
@@ -74,6 +74,7 @@ nurse_name: VARCHAR(255)
 }
 
 // Relationships
+
 relationship Attends {
 Patient[N] -> Doctor[N]
 }
@@ -107,14 +108,11 @@ weak relationship Assists {
 Nurse[N] -> Patient[1]
 }
 
-
 // Many-many relationship
 relationship Consultation {
 Doctor[N] -> Patient[N]
 note: VARCHAR(255)
 }
-
-
 
 // Many-one relationship with participation requirement
 relationship Room_Belong_To {
