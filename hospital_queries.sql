@@ -19,6 +19,7 @@ Here are sample scripts which fullfills the following requirements
 This query retrieves the names and ages of patients whose age is greater 
 than the age of at least one doctor in the Cardiology department.
 
+
 */
 
 select P.patient_name, P.age

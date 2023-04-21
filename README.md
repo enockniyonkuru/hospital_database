@@ -4,6 +4,17 @@ In this directory there are files for the final project of CPSC 372  Database Fu
 
 Project Title: Hospital Database
 
+### Steps to run the whole projects:
+
+1. Download VsCode 
+2. Add the following extensions if they do not exist already: SQL Lite and Big ER
+3. Create an ER diagram through [hospital_er.erd](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_er.erd)
+4. Run DDL for the relational schema through: [hospital_ddl.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_ddl.sql)
+5. Run DML for the relational schema through: [hospital_seed.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_seed.sql)
+6. Run different queries  for the relational schema through: [hospital_queries.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_queries.sql)
+
+
+
 ## I. Entity-Relationship Diagram: 
 
 file with Big ER: [hospital_er.erd](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_er.erd)
