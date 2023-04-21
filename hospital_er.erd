@@ -1,0 +1,166 @@
+// ER Model
+erdiagram Hospital
+
+// Options
+notation=default
+
+// Entities
+entity Doctor {
+doctor_id: INT key
+doctor_name: VARCHAR(255)
+gender: CHAR(5)
+age: SMALLINT
+dept_name: VARCHAR(100)
+phone: VARCHAR(20)
+office: VARCHAR(100)
+city: VARCHAR(100)
+salary: DECIMAL(10,2)
+}
+
+entity Patient {
+patient_id: INT key
+patient_name: VARCHAR(255)
+gender: CHAR(5)
+age: SMALLINT
+weight: DECIMAL(5,2)
+city: VARCHAR(100)
+}
+
+entity Inpatient {
+patient_id: INT key
+room_no: INT
+date_of_adm: DATE
+date_of_dis: DATE
+lab_no: INT
+}
+
+entity Outpatient {
+patient_id: INT key
+date: DATE
+lab_no: INT
+}
+
+entity Room {
+room_no: INT key
+room_type: VARCHAR(100)
+status: VARCHAR(100)
+}
+
+entity Department {
+dept_name: VARCHAR(100) key
+building: VARCHAR(100)
+budget: DECIMAL(10,2)
+}
+
+entity Prescription {
+prescription_id: INT key
+disease_id: INT
+symptom_id: INT
+lab_no: INT
+medicine_qty: INT
+}
+
+entity Bill {
+bill_no: INT key
+patient_id: INT
+service_charge: DECIMAL(10,2)
+no_of_days: INT
+due_date: DATE
+}
+
+weak entity Nurse {
+nurse_id: INT partial-key
+nurse_name: VARCHAR(255)
+}
+
+// Relationships
+relationship Attends {
+Patient[N] -> Doctor[N]
+}
+
+relationship AssignedTo {
+Room[1] -> Inpatient[1]
+}
+
+relationship Visits {
+Patient[N] -> Outpatient[N]
+}
+
+relationship Admitted {
+Patient[1] -> Inpatient[1]
+}
+
+relationship Charged {
+Patient[N] -> Bill[N]
+}
+
+relationship Prescribed {
+Prescription[N] -> Patient[1] -> Doctor[1]
+points: DOUBLE
+}
+
+relationship Work {
+Doctor[1] -> Department[1]
+}
+
+weak relationship Assists {
+Nurse[N] -> Patient[1]
+}
+
+
+// Many-many relationship
+relationship Consultation {
+Doctor[N] -> Patient[N]
+note: VARCHAR(255)
+}
+
+
+
+// Many-one relationship with participation requirement
+relationship Room_Belong_To {
+Room[N] -> Department[1] 
+}
+
+// One-many relationship with participation requirement
+relationship Department_Manages {
+Department[1] -> Room[N]
+}
+
+
+
+// // Composite and multi-valued attribute
+// attribute Medical_History {
+// patient_id: INT
+// disease: VARCHAR(100)
+// symptom: VARCHAR(100)
+// treatment: VARCHAR(100) multi-value
+// }
+
+// // Descriptive attribute
+// attribute Room_Facilities {
+// room_no: INT
+// facilities: VARCHAR(255) multi-value
+// }
+
+
+// Cardinality of relationships
+// Attends: Many-to-Many
+// AssignedTo: One-to-One
+// Visits: Many-to-Many
+// Admitted: One-to-One
+// Charged: Many-to-Many
+// Prescribed: Many-to-One
+// Work: Many-to-One
+// Assists: One-to-Many
+// Consultation: Many-to-Many
+// Room_Belong_To: Many-to-One
+// Department_Manages: One-to-Many
+
+
+// Explanation of the updated ER diagram:
+
+// Added a weak entity set Nurse to the schema.
+// Added the composite and multi-valued attribute Medical_History to Patient entity.
+// Added the many-many relationship Consultation between Doctor and Patient entities, with a descriptive attribute note.
+// Added the descriptive attribute Room_Facilities to Room entity.
+// Added the many-one relationship Room
