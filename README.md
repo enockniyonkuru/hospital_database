@@ -6,7 +6,7 @@ Project Title: Hospital Database
 
 ## I. Entity-Relationship Diagram: 
 
-file with Big ER: hospital_er.erd
+file with Big ER: [hospital_er.erd](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_er.erd)
 
 ## II. Relational Schema for hospital database 
 
@@ -57,6 +57,6 @@ Therefore, the schema is not in BCNF because of the functional dependencies {pat
 
 ## III. Transaction and Query Executions
 
-1. File for DDL: hospital_ddl.sql
-2. File for DML: hospital_seed.sql
-3. File with Queries: hospital_quries.sql
+1. File for DDL: [hospital_ddl.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_ddl.sql)
+2. File for DML: [hospital_seed.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_seed.sql)
+3. File with Queries: [hospital_quries.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_quries.sql)
