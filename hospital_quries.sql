@@ -1,16 +1,18 @@
 
 
-select * from Doctor;
-select * from Patient;
-select * from Room;
-select * from Inpatient;
-select * from Outpatient;
-select * from Department;
-select * from Prescription;
-select * from Bill;
-select * from Nurse;
+/*
 
+Here are sample scripts which fullfills the following requirements
+- At least two queries should involve four or more relations. 
+- At least one query should involve outer joins.
+- At least one query should use an aggregate function. 
+- At least three queries should use subqueries in a non-trivial way.
+- One of those should use a set comparison (e.g. > some) 
+- At least two queries should use grouping.
+- At least one of those should use having. 
+- At least one query should use set operations.
 
+*/
  
 /*
 1. Query involving set comparison and subquery:
