@@ -6,8 +6,8 @@ Project Title: Hospital Database
 
 ### Steps to run the whole projects:
 
-1. Download VsCode 
-2. Add the following extensions if they do not exist already: SQL Lite and Big ER
+1. Download if you don't have it already [VsCode](https://code.visualstudio.com/)
+2. Add the following extensions if they do not exist already: [SQL Lite](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite) and [Big ER](https://marketplace.visualstudio.com/items?itemName=BIGModelingTools.erdiagram)
 3. Create an ER diagram through [hospital_er.erd](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_er.erd)
 4. Run DDL for the relational schema through: [hospital_ddl.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_ddl.sql)
 5. Run DML for the relational schema through: [hospital_seed.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_seed.sql)
