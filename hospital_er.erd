@@ -86,7 +86,7 @@ relationship Bill_On_Prescription {
   Prescription[1] -> Bill[1]
 }
 
-// One-to-many relationship between Department and Doctor:
+// One-to-many relationship between Department and Doctor_Department:
 relationship Department_Has_Doctors {
   Department[1] -> Doctor_Department[N]
 }
@@ -117,21 +117,20 @@ relationship Charged {
   Bill[1] -> Patient[N]
 }
 
-relationship Prescribed {
-Prescription[N] -> Patient[1] -> Doctor[1]
-points: DOUBLE
-}
 
+
+// one-to-one relatioinship between Doctor and Department 
 relationship Work {
 Doctor[1] -> Department[1]
 }
 
+// one-to-one relatioinship between Nurse and Patient 
 weak relationship Assists {
 Nurse[N] -> Patient[1]
 }
 
 
-// Many-many relationship
+// Many-many relationship between Doctor and Patient 
 relationship Consultation {
 Doctor[N] -> Patient[N]
 }
