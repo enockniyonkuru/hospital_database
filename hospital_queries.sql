@@ -16,10 +16,8 @@ Here are sample scripts which fullfills the following requirements
  
 
 /*
-
 This query retrieves the names and ages of patients whose age is greater 
 than the age of at least one doctor in the Cardiology department.
-
 */
 
 select P.patient_name, P.age
@@ -33,6 +31,7 @@ WHERE D.doctor_id = DD.doctor_id and DD.dept_name = 'Cardiology') ;
 This query retrieves the names and weights of patients who have no 
 bills due after 2022-05-01 and have not been discharged from the hospital after 2022-05-01.
 */
+
 SELECT P.patient_name, P.weight
 FROM Patient P
 WHERE P.patient_id NOT IN (SELECT B.patient_id FROM Bill B WHERE B.due_date > '2022-05-01')
@@ -40,7 +39,6 @@ AND P.patient_id NOT IN (SELECT I.patient_id FROM Inpatient I WHERE I.date_of_di
 
 
 /*
-
 This query retrieves the average service charge of bills for each 
 room type that has inpatients.
 */
@@ -57,6 +55,7 @@ This query retrieves the IDs and names of patients who were either
 inpatients or outpatients between January and June 2022, along with 
 a column indicating their status. The results are combined with the UNION operator.
 */
+
 SELECT P.patient_id, P.patient_name, 'inpatient' AS status
 FROM Patient P
 INNER JOIN Inpatient I ON P.patient_id = I.patient_id
@@ -72,8 +71,8 @@ WHERE O.date BETWEEN '2022-01-01' AND '2022-06-31';
 /*
 This query retrieves the names and ages of all patients who weigh more than 
 150 pounds.
-
 */
+
 SELECT patient_name, age 
 FROM Patient 
 WHERE weight > 150;
@@ -81,7 +80,6 @@ WHERE weight > 150;
 /*
 This query retrieves the department name, building, and 
 budget for the department(s) that have the highest budget.
-
 */
 
 SELECT dept_name, building, budget 
@@ -91,8 +89,8 @@ WHERE budget = (SELECT MAX(budget) FROM Department);
 /*
 This query retrieves the names and salaries of doctors 
 who work in departments that have a budget greater than $1,000,000.
-
 */
+
 SELECT doctor_name, salary 
 FROM Doctor 
 WHERE doctor_id IN 
@@ -103,12 +101,11 @@ WHERE doctor_id IN
          FROM Department 
          WHERE budget > 1000000));
 
-
 /*
 This query retrieves the names and ages of all patients who have been 
 both inpatients and outpatients.
-
 */
+
 SELECT patient_name, age 
 FROM Patient 
 WHERE patient_id IN 
@@ -121,7 +118,6 @@ WHERE patient_id IN
 /*
 This query retrieves the names of all patients who have been inpatients 
 in room 101 but have never been inpatients in any other room.
-
 */
 SELECT patient_name 
 FROM Patient 
@@ -135,8 +131,8 @@ WHERE patient_id IN
 /*
 This query retrieves the names of all doctors who work in departments 
 that have a budget greater than the average budget of all departments.
-
 */
+
 SELECT doctor_name 
 FROM Doctor 
 WHERE doctor_id IN 
@@ -150,12 +146,11 @@ WHERE doctor_id IN
 
 
 /*
-
 This query selects the names of all doctors and their 
 corresponding departments from the Doctor and Doctor_Department tables, 
 where the doctor's ID matches that in the Doctor_Department table.
-
 */
+
 SELECT d.doctor_name, dd.dept_name
 FROM Doctor d, Doctor_Department dd
 WHERE d.doctor_id = dd.doctor_id;
@@ -164,8 +159,8 @@ WHERE d.doctor_id = dd.doctor_id;
 This query selects the count of unique patient IDs from 
 the Inpatient table, where the patient ID is not found in 
 the Patient ID column of the Outpatient table.
-
 */
+
 SELECT COUNT(DISTINCT patient_id) 
 FROM Inpatient 
 WHERE patient_id NOT IN (SELECT patient_id FROM Outpatient);
@@ -176,6 +171,7 @@ in each department from the Doctor and Doctor_Department tables.
 The data is grouped by department name and  
 sorted in ascending order by department name.
 */
+
 SELECT dd.dept_name, AVG(d.salary)
 FROM Doctor d, Doctor_Department dd
 WHERE d.doctor_id = dd.doctor_id
