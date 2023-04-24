@@ -1,140 +1,139 @@
 // ER Model
 erdiagram Hospital
 
+// Options
 notation=default
 
 // Entities
 entity Doctor {
-doctor_id: INT key
-doctor_name: VARCHAR(255)
-gender: CHAR(5)
-age: SMALLINT
-dept_name: VARCHAR(100)
-phone: VARCHAR(20)
-office: VARCHAR(100)
-city: VARCHAR(100)
-salary: DECIMAL(10,2)
+    doctor_id: INT key
+    doctor_name: VARCHAR(255)
+    gender: CHAR(5)
+    age: INT
+    phone: VARCHAR(20)
+    office: VARCHAR(20)
+    salary: DECIMAL(10,2)
+}
+
+entity Department{
+    dept_name: VARCHAR(255) key
+    building: VARCHAR(255)
+    budget: DECIMAL(10,2)
+}
+
+entity Doctor_Department {
+    doctor_id: INT key
+    dept_name: VARCHAR(255) key
 }
 
 entity Patient {
-patient_id: INT key
-patient_name: VARCHAR(255)
-gender: CHAR(5)
-age: SMALLINT
-weight: DECIMAL(5,2)
-city: VARCHAR(100)
+    patient_id: INT key
+    patient_name: VARCHAR(255)
+    gender: CHAR(5)
+    age: INT
+    weight: DECIMAL(10,2)
+    city: VARCHAR(255)
 }
 
-entity Inpatient {
-patient_id: INT key
-room_no: INT
-date_of_adm: DATE
-date_of_dis: DATE
-lab_no: INT
+weak entity Inpatient{
+    patient_id: INT key
+    room_no: INT partial-key
+    date_of_adm: DATE
+    date_of_dis: DATE
 }
 
 entity Outpatient {
-patient_id: INT key
-date: DATE
-lab_no: INT
+    patient_id: INT key
+    date: DATE
 }
-
 entity Room {
-room_no: INT key
-room_type: VARCHAR(100)
-status: VARCHAR(100)
+    room_no: INT key
+    room_type: VARCHAR(255)
+    status: VARCHAR(255)
 }
-
-entity Department {
-dept_name: VARCHAR(100) key
-building: VARCHAR(100)
-budget: DECIMAL(10,2)
-}
-
 entity Prescription {
-prescription_id: INT key
-disease_id: INT
-symptom_id: INT
-lab_no: INT
-medicine_qty: INT
-}
+    prescription_id: INT key
+    disease_id: INT
+    symptom_id: INT
+    lab_type: VARCHAR(255)
+    medicine_qty: INT
 
+}
 entity Bill {
-bill_no: INT key
-patient_id: INT
-service_charge: DECIMAL(10,2)
-no_of_days: INT
-due_date: DATE
+    bill_no: INT key
+    patient_id: INT
+    service_charge: DECIMAL(10,2)
+    no_of_days: INT
+    due_date: DATE
 }
 
-weak entity Nurse {
-nurse_id: INT partial-key
-nurse_name: VARCHAR(255)
+weak entity Nurse{
+ nurse_id: INT partial-key
+ nurse_name: VARCHAR(255)
 }
+
 
 // Relationships
 
-// Many-many relationship
-relationship Attends {
-Patient[N] -> Doctor[N]
+
+// One-to-one relationship between Inpatient and Room:
+relationship Inpatient_Is_In_Room {
+  Inpatient[1] -> Room[1]
 }
 
-// One-one relationship
-relationship AssignedTo {
-Room[1] -> Inpatient[1]
+// One-to-one relationship between Prescription and Bill:
+relationship Bill_On_Prescription {
+  Prescription[1] -> Bill[1]
 }
 
-// Many-many relationship
-relationship Visits {
-Patient[N] -> Outpatient[N]
+// One-to-many relationship between Department and Doctor:
+relationship Department_Has_Doctors {
+  Department[1] -> Doctor_Department[N]
 }
 
-// One-one relationship
+// One-to-many relationship between Doctor and Doctor_Department:
+relationship Doctor_Belongs_to_Department {
+  Doctor[1] -> Doctor_Department[N]
+}
+
+// One-to-many relationship between Patient and Inpatient:
 relationship Admitted {
-Patient[1] -> Inpatient[1]
+  Patient[1] -> Inpatient[N]
 }
 
-// Many-many relationship
+// One-to-one relationship between Patient and Outpatient:
+relationship Visits {
+  Patient[1] -> Outpatient[0..1]
+}
+
+
+// One-to-many relationship between Prescription and Patient:
+relationship Patient_Prescription {
+  Prescription[1] -> Patient[N]
+}
+
+// One-to-many relationship between Bill and Patient:
 relationship Charged {
-Patient[N] -> Bill[N]
+  Bill[1] -> Patient[N]
 }
 
-// Many-one relaitonship
 relationship Prescribed {
 Prescription[N] -> Patient[1] -> Doctor[1]
 points: DOUBLE
 }
 
-// One-one relationship
 relationship Work {
 Doctor[1] -> Department[1]
 }
 
-// Many-one relationship
 weak relationship Assists {
 Nurse[N] -> Patient[1]
 }
 
+
 // Many-many relationship
 relationship Consultation {
 Doctor[N] -> Patient[N]
-note: VARCHAR(255)
-}
-
-// Many-one relationship with participation requirement
-relationship Room_Belong_To {
-Room[N] -> Department[1] 
-}
-
-// One-many relationship with participation requirement
-relationship Department_Manages {
-Department[1] -> Room[N]
 }
 
 
-
-
-/*
-
-Reducing the ER model to Relationsal schema 6.7 
-*/

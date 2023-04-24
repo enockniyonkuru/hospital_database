@@ -14,11 +14,11 @@ Here are sample scripts which fullfills the following requirements
 
 */
  
+
 /*
-1. Query involving set comparison and subquery:
+
 This query retrieves the names and ages of patients whose age is greater 
 than the age of at least one doctor in the Cardiology department.
-
 
 */
 
@@ -26,47 +26,21 @@ select P.patient_name, P.age
 from Patient P
 where P.age > (
 SELECT D.age 
-FROM Doctor D 
-WHERE D.dept_name = 'Cardiology');
-
-
-/*
-2. Query involving grouping and having:
-This query retrieves the department names and number 
-of doctors in each department, but only for departments with at least 2 doctors.
-*/
-SELECT D.dept_name, COUNT(*) AS num_doctors
-FROM Doctor D
-GROUP BY D.dept_name
-HAVING COUNT(*) >= 2;
-
+FROM Doctor D, Doctor_Department DD
+WHERE D.doctor_id = DD.doctor_id and DD.dept_name = 'Cardiology') ;
 
 /*
-3. Query involving grouping and having:
-
-This query retrieves the department names and average salaries of doctors 
-in each department, but only for departments with an average salary greater than 120000.
-*/
-
-SELECT D.dept_name, AVG(D.salary) AS avg_salary
-FROM Doctor D
-GROUP BY D.dept_name
-HAVING AVG(D.salary) > 120000;
-
-/*
-4. Query involving subqueries:
-
 This query retrieves the names and weights of patients who have no 
-bills due after 2022-08-01 and have not been discharged from the hospital after 2022-08-01.
+bills due after 2022-05-01 and have not been discharged from the hospital after 2022-05-01.
 */
 SELECT P.patient_name, P.weight
 FROM Patient P
-WHERE P.patient_id NOT IN (SELECT B.patient_id FROM Bill B WHERE B.due_date > '2022-08-01')
-AND P.patient_id NOT IN (SELECT I.patient_id FROM Inpatient I WHERE I.date_of_dis > '2022-08-01');
+WHERE P.patient_id NOT IN (SELECT B.patient_id FROM Bill B WHERE B.due_date > '2022-05-01')
+AND P.patient_id NOT IN (SELECT I.patient_id FROM Inpatient I WHERE I.date_of_dis > '2022-05-01');
 
 
 /*
-5. Query involving grouping:
+
 This query retrieves the average service charge of bills for each 
 room type that has inpatients.
 */
@@ -79,7 +53,6 @@ GROUP BY R.room_type;
 
 
 /*
-6. Query involving set operations:
 This query retrieves the IDs and names of patients who were either 
 inpatients or outpatients between January and June 2022, along with 
 a column indicating their status. The results are combined with the UNION operator.
@@ -95,68 +68,128 @@ INNER JOIN Outpatient O ON P.patient_id = O.patient_id
 WHERE O.date BETWEEN '2022-01-01' AND '2022-06-31';
 
 
-/*
 
-10. Query involving Aggregate Functions, 4 relations, :
-This query lists the names of all patients who have been treated by a doctor 
-in a department whose budget is less than the average budget of all departments.
+/*
+This query retrieves the names and ages of all patients who weigh more than 
+150 pounds.
 
 */
-SELECT distinct p.patient_name
-FROM Patient p
-INNER JOIN Bill b ON p.patient_id = b.patient_id
-INNER JOIN Doctor d ON p.city = d.city
-INNER JOIN Department dp ON d.dept_name = dp.dept_name
-WHERE dp.budget < (SELECT AVG(budget) FROM Department);
-
+SELECT patient_name, age 
+FROM Patient 
+WHERE weight > 150;
 
 /*
-11.
-This query finds the names and ages of all patients who were treated by 
-a male doctor and have been admitted to the inpatient ward. 
-*/
-
-SELECT distinct p.patient_name, p.age
-FROM Patient p
-INNER JOIN Inpatient i ON p.patient_id = i.patient_id
-INNER JOIN Doctor d ON p.city = d.city
-WHERE d.gender = 'Male';
-
-/*
-12.Query involving outer join, and aggregate function:
-This query finds the total salary expense of the hospital, grouped by department.
-*/
-SELECT d.dept_name, SUM(doctor.salary) AS total_salary_expense
-FROM Department d
-LEFT JOIN Doctor ON d.dept_name = Doctor.dept_name
-GROUP BY d.dept_name;
-
-/*
-13. 
-This query lists the names and ages of all patients who have been treated 
-by a doctor in a department with a budget greater than $500,000.
+This query retrieves the department name, building, and 
+budget for the department(s) that have the highest budget.
 
 */
 
-SELECT distinct p.patient_name, p.age
-FROM Patient p
-INNER JOIN Bill b ON p.patient_id = b.patient_id
-INNER JOIN Doctor d ON p.city = d.city
-INNER JOIN Department dp ON d.dept_name = dp.dept_name
-WHERE dp.budget > 500000;
+SELECT dept_name, building, budget 
+FROM Department 
+WHERE budget = (SELECT MAX(budget) FROM Department);
+
+/*
+This query retrieves the names and salaries of doctors 
+who work in departments that have a budget greater than $1,000,000.
+
+*/
+SELECT doctor_name, salary 
+FROM Doctor 
+WHERE doctor_id IN 
+   (SELECT doctor_id 
+    FROM Doctor_Department 
+    WHERE dept_name IN 
+        (SELECT dept_name 
+         FROM Department 
+         WHERE budget > 1000000));
+
+
+/*
+This query retrieves the names and ages of all patients who have been 
+both inpatients and outpatients.
+
+*/
+SELECT patient_name, age 
+FROM Patient 
+WHERE patient_id IN 
+   (SELECT patient_id 
+    FROM Inpatient 
+    WHERE patient_id IN 
+        (SELECT patient_id 
+         FROM Outpatient));
+
+/*
+This query retrieves the names of all patients who have been inpatients 
+in room 101 but have never been inpatients in any other room.
+
+*/
+SELECT patient_name 
+FROM Patient 
+WHERE patient_id IN 
+   (SELECT patient_id 
+    FROM Inpatient 
+    WHERE room_no = 101 
+    GROUP BY patient_id 
+    HAVING COUNT(*) = 1);
+
+/*
+This query retrieves the names of all doctors who work in departments 
+that have a budget greater than the average budget of all departments.
+
+*/
+SELECT doctor_name 
+FROM Doctor 
+WHERE doctor_id IN 
+   (SELECT doctor_id 
+    FROM Doctor_Department 
+    WHERE dept_name IN 
+        (SELECT dept_name 
+         FROM Department 
+         WHERE budget > 
+            (SELECT AVG(budget) FROM Department)));
 
 
 /*
 
-14. 
-This query retrieves the names and ages of patients who have a bill record 
-and whose attending doctor is younger than 50 years old and practices in 
-the same city as the patient.
+This query selects the names of all doctors and their 
+corresponding departments from the Doctor and Doctor_Department tables, 
+where the doctor's ID matches that in the Doctor_Department table.
+
 */
-SELECT distinct p.patient_name, p.age
-FROM Patient p
-INNER JOIN Bill b ON p.patient_id = b.patient_id
-INNER JOIN Doctor d ON p.city = d.city
-WHERE d.age < 50;
+SELECT d.doctor_name, dd.dept_name
+FROM Doctor d, Doctor_Department dd
+WHERE d.doctor_id = dd.doctor_id;
+
+/*
+This query selects the count of unique patient IDs from 
+the Inpatient table, where the patient ID is not found in 
+the Patient ID column of the Outpatient table.
+
+*/
+SELECT COUNT(DISTINCT patient_id) 
+FROM Inpatient 
+WHERE patient_id NOT IN (SELECT patient_id FROM Outpatient);
+
+/*
+This query selects the department name and average salary of doctors 
+in each department from the Doctor and Doctor_Department tables. 
+The data is grouped by department name and  
+sorted in ascending order by department name.
+*/
+SELECT dd.dept_name, AVG(d.salary)
+FROM Doctor d, Doctor_Department dd
+WHERE d.doctor_id = dd.doctor_id
+GROUP BY dd.dept_name
+ORDER BY dd.dept_name ASC;
+
+
+/*
+This query selects the room number and room type from the Room table 
+where the status of the room is currently Vacant.
+*/
+SELECT room_no, room_type
+FROM Room
+WHERE status = 'Vacant';
+
 
 
