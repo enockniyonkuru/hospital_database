@@ -23,45 +23,50 @@ Project Title: Hospital Database
 --- Primary Keys are in _Italic_
 
 
-* __Patient__ (_patient_id_, patient_name, gender, age, weight, city)
-* __Inpatient__ (_patient_id_, _room_no_, _date_of_adm_, date_of_dis, _lab_no_)
-* __Outpatient__ (_patient_id_, _date_, _lab_no_)
-* __Room__ (_room_no_, room_type, status)
-* __Department__ (_dept_name_, building, budget)
-* __Prescription__ (_prescription_id_, disease_id, symptom_id, _lab_no_, medicine_qty)
-* __Bill__ (_bill_no_, _patient_id_, service_charge, no_of_days, due_date)
-* __Nurse__ (_nurse_id_ , nurse_name)
+* __Doctor__ (_doctor_id_, doctor_name, gender, age, phone, office, salary) 
+* __Department__ (_dept_name_, building, budget) 
+* __Doctor_Department__ (_doctor_id, dept_name_) 
+* __Patient__ (_patient_id_, patient_name, gender, age, weight, city) 
+* __Inpatient__ (_patient_id, room_no_, date_of_adm, date_of_dis) 
+* __Outpatient__ (_patient_id_, date) 
+* __Room__ (_room_no_, room_type, status) 
+* __Prescription__ (_prescription_id_, disease_id, symptom_id, lab_type, medicine_qty) 
+* __Bill__ (_bill_no_, patient_id, service_charge, no_of_days, due_date) 
+* __Nurse__ (_nurse_id_, nurse_name)
 
-#### Boyce-Codd Normal Form Decomposition or Check 
+
+
+#### Verify the Relational Schema to be in Boyce - Codd normal form (BCNF)
 
 To check if the relations satisfy BCNF, we need to check for functional dependencies and their dependencies. 
+
 A relation is in BCNF if and only if every determinant is a candidate key. 
 
 For the hospital_database these are the candidate keys for each relation: 
 
-- Patient: {patient_id}
-- Inpatient: {patient_id, room_no, date_of_adm}
-- Outpatient: {patient_id, date}
-- Room: {room_no}
-- Department: {dept_name}
-- Prescription: {prescription_id}
-- Bill: {bill_no}
-- Nurse: {nurse_id}
-- Doctor: {doctor_id}
+- Doctor: doctor_id
+- Department: dept_name
+- Doctor_Department: (doctor_id, dept_name)
+- Patient: patient_id
+- Inpatient: (patient_id, room_no)
+- Outpatient: patient_id
+- Room: room_no
+- Prescription: prescription_id
+- Bill: bill_no
+- Nurse: nurse_id
 
 We need to check whether there are any functional dependencies that violate BCNF in each relation:
 
-- Patient: There are no non-trivial functional dependencies.
-- Inpatient: There are no non-trivial functional dependencies.
-- Outpatient: There are no non-trivial functional dependencies.
-- Room: There are no non-trivial functional dependencies.
-- Department: There are no non-trivial functional dependencies.
-- Prescription: There are no non-trivial functional dependencies.
-- Bill: There is a functional dependency {patient_id} -> {service_charge, no_of_days, due_date} that violates BCNF, since {patient_id} is not a candidate key. This means that we could have two bills for the same patient, but with different service charges, number of days, and due dates.
-- Nurse: There are no non-trivial functional dependencies.
-- Doctor: There is a functional dependency {city} -> {dept_name} that violates BCNF, since {city} is not a candidate key. This means that we could have two doctors in the same city, but in different departments.
-
-Therefore, the schema is not in BCNF because of the functional dependencies {patient_id} -> {service_charge, no_of_days, due_date} and {city} -> {dept_name}.
+* __Doctor__ :  the candidate key is doctor_id. All other attributes are dependent on the candidate key
+* __Department__ : the candidate key is dept_name. All other attributes are dependent on the candidate key.
+* __Doctor_Department__ : the table only contains the combination of foreign keys of Doctor and Department tables, and both of these foreign keys are a part of the primary key.
+* __Patient__ : the candidate key is patient_id. All other attributes are dependent on the candidate key. 
+* __Inpatient__ : the candidate key is a combination of patient_id and room_no. All other attributes are dependent on the candidate key.
+* __Outpatient__ : the candidate key is patient_id. All other attributes are dependent on the candidate key. 
+* __Room__ : the candidate key is room_no. All other attributes are dependent on the candidate key. 
+* __Prescription__ : the candidate key is prescription_id. All other attributes are dependent on the candidate key.
+* __Bill__ : the candidate key is bill_no. All other attributes are dependent on the candidate key or on patient_id, which is a part of the primary key. 
+* __Nurse__: the candidate key is nurse_id. All other attributes are dependent on the candidate key. 
 
 
 
