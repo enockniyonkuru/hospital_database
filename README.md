@@ -15,7 +15,7 @@ Project Title: Hospital Database
 
 
 ## Entity Relationship (ER) Diagram
-<img width="910" alt="ER" src="https://user-images.githubusercontent.com/73262017/233898783-fab02f72-ffe7-4806-9723-dbd74026f166.png">
+<img width="1181" alt="ER" src="https://user-images.githubusercontent.com/73262017/233915886-9ee386f8-5584-43a1-9011-721b9fbc99b6.png">
 
 
 ## Relational Schema for hospital database 
