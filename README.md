@@ -14,6 +14,8 @@ Project Title: Hospital Database
 6. Run different queries  for the relational schema through: [hospital_queries.sql](https://github.com/enockniyonkuru/hospital_database/blob/main/hospital_queries.sql)
 
 
+## Entity Relationship (ER) Diagram
+<img width="910" alt="ER" src="https://user-images.githubusercontent.com/73262017/233898783-fab02f72-ffe7-4806-9723-dbd74026f166.png">
 
 
 ## Relational Schema for hospital database 
