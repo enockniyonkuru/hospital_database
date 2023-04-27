@@ -23,16 +23,16 @@ Project Title: Hospital Database
 --- Primary Keys are in _Italic_
 
 
-* __Doctor__ (_doctor_id_, doctor_name, gender, age, phone, office, salary) 
-* __Department__ (_dept_name_, building, budget) 
-* __Doctor_Department__ (_doctor_id, dept_name_) 
-* __Patient__ (_patient_id_, patient_name, gender, age, weight, city) 
-* __Inpatient__ (_patient_id, room_no_, date_of_adm, date_of_dis) 
-* __Outpatient__ (_patient_id_, date) 
-* __Room__ (_room_no_, room_type, status) 
-* __Prescription__ (_prescription_id_, disease_id, symptom_id, lab_type, medicine_qty) 
-* __Bill__ (_bill_no_, patient_id, service_charge, no_of_days, due_date) 
-* __Nurse__ (_nurse_id_, nurse_name)
+* __Doctor__ (***doctor_id***, doctor_name, gender, age, phone, office, salary) 
+* __Department__ (***dept_name***, building, budget) 
+* __Doctor_Department__ (***doctor_id, dept_name***) 
+* __Patient__ (***patient_id***, patient_name, gender, age, weight, city) 
+* __Inpatient__ (***patient_id, room_no***, date_of_adm, date_of_dis) 
+* __Outpatient__ (***patient_id***, date) 
+* __Room__ (***room_no***, room_type, status) 
+* __Prescription__ (***prescription_id***, disease_id, symptom_id, lab_type, medicine_qty) 
+* __Bill__ (***bill_no***, patient_id, service_charge, no_of_days, due_date) 
+* __Nurse__ (***nurse_id***, nurse_name)
 
 
 
@@ -67,6 +67,8 @@ We need to check whether there are any functional dependencies that violate BCNF
 * __Prescription__ : the candidate key is prescription_id. All other attributes are dependent on the candidate key.
 * __Bill__ : the candidate key is bill_no. All other attributes are dependent on the candidate key or on patient_id, which is a part of the primary key. 
 * __Nurse__: the candidate key is nurse_id. All other attributes are dependent on the candidate key. 
+
+In conclusion our relational schema is in BCNF 
 
 
 
