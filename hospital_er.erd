@@ -136,3 +136,29 @@ Doctor[N] -> Patient[N]
 }
 
 
+/*
+
+This is additional notation  of attributes which could not be added to ER by Big ER
+
+Composite attribute: Patient Address
+
+The Patient entity may have a composite attribute called Address 
+which could be composed of multiple parts such as 
+street name, city, state, and zip code. This composite attribute 
+can be broken down into smaller components to help in better organization of data.
+
+Multi-valued attribute: Prescription Symptoms
+
+The Prescription entity may have a multi-valued attribute called Symptoms, 
+which can contain a list of symptoms a patient has. This attribute can have 
+multiple values and each value corresponds to a different symptom.
+
+Descriptive attribute: Room Type
+
+The Room entity may have a descriptive attribute called Type, 
+which describes the type of room available in the hospital, 
+such as ICU, general ward, private room, etc. 
+This attribute describes a particular characteristic of the entity 
+and can help in filtering data based on specific attributes.
+
+*/

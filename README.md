@@ -2,7 +2,28 @@
 
 In this directory there are files for the final project of CPSC 372  Database Fundamentals
 
-Project Title: Hospital Database
+## Database Project: Hospital Database
+
+### Domain Description
+
+ The Hospital Database is designed to store and manage information related to a typical hospital. This database will include information about a patient, doctor, nurse, and will help to monitor the hospital operations including doctor departments, bills paid and details regarding each patient. This will help to keep trac of each patient’s history when they visit the hospital again for the doctor to know the past prescriptions and visits. This database will also help in the finances of the hospital by managing how much patients paid and the budgets of departments. It will also help the administration of the hospital with logistics on how the rooms are being administered in the hospital, and the operations of doctors and nurses in the hospital. 
+
+
+**Entities and Relationships** 
+
+The Hospital Database will include several key entities, each of which will be related to one another in various ways. These entities include: 
+
+* **Doctor**: This table stores information about individual doctors, including their unique identifier, name, gender, age, phone number, office location, and salary. Each doctor will be assigned a unique identifier to ensure that their information, and patients they treated can be easily tracked and accessed easily. 
+* **Department**: This table contains data related to the different departments in the hospital, including their department name, building, and budget. Each department will be assigned a unique identifier to ensure that their information can be easily tracked and accessed easily.
+* **Doctor_Department**: This table is a junction table that links doctors to the departments they work in. It contains the doctor ID and department name, allowing for efficient queries about which doctors work in which departments.
+* **Patient**: This table stores data related to patients, including their unique identifier, name, gender, age, weight, and city. It is a crucial table for maintaining patient records and tracking their medical history.
+* **Inpatient**: This table contains details of patients who have been admitted to the hospital, such as their patient ID, room number, admission, and discharge dates. It helps hospital staff monitor patient care and manage bed allocation.
+* **Outpatient**: This table stores information about patients who visit the hospital for outpatient services. It includes their patient ID, the date of their visit. It is useful for tracking patient visits and managing appointments.
+* **Room**: This table stores information about the various rooms available in the hospital, including their room number, type, and status. It helps hospital staff manage bed allocation and ensure that rooms are available for patients when needed.
+* **Prescription**: This table stores information about prescriptions, including their unique identifier, the associated disease and symptom IDs, lab type, and medicine quantity. It helps hospital staff manage medication for patients and track their prescriptions.
+* **Bill**: This table contains details of bills issued to patients, including their unique identifier, patient ID, service charge, number of days, and due date. It is useful for managing patient payments and tracking outstanding bills.
+* **Nurse**: This table stores information about the hospital's nursing staff, including their unique identifier and name. It helps hospital staff manage nursing resources and track the availability of nurses.
+
 
 ### Steps to run the whole projects:
 
