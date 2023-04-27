@@ -43,7 +43,6 @@ The Hospital Database will include several key entities, each of which will be r
 
 --- Primary Keys are in _Italic_
 
-
 * __Doctor__ (***doctor_id***, doctor_name, gender, age, phone, office, salary) 
 * __Department__ (***dept_name***, building, budget) 
 * __Doctor_Department__ (***doctor_id, dept_name***) 
@@ -63,24 +62,33 @@ To check if the relations satisfy BCNF, we need to check for functional dependen
 
 A relation is in BCNF if and only if every determinant is a candidate key. 
 
-For the hospital_database these are the candidate keys for each relation: 
 
-- Doctor: doctor_id
-- Department: dept_name
-- Doctor_Department: (doctor_id, dept_name)
-- Patient: patient_id
-- Inpatient: (patient_id, room_no)
-- Outpatient: patient_id
-- Room: room_no
-- Prescription: prescription_id
-- Bill: bill_no
-- Nurse: nurse_id
+Initial Relational Schema before BCNF:
 
-We need to check whether there are any functional dependencies that violate BCNF in each relation:
+* __Doctor__ (***doctor_id***,doctor_id, doctor_name, gender, age, dept_name, phone, office, salary) 
+* __Department__ (***dept_name***, building, budget) 
+* __Patient__ (***patient_id***, patient_name, gender, age, weight, city) 
+* __Inpatient__ (***patient_id, room_no***, date_of_adm, date_of_dis) 
+* __Outpatient__ (***patient_id***, date) 
+* __Room__ (***room_no***, room_type, status) 
+* __Prescription__ (***prescription_id***, disease_id, symptom_id, lab_type, medicine_qty) 
+* __Bill__ (***bill_no***, patient_id, service_charge, no_of_days, due_date) 
+* __Nurse__ (***nurse_id***, nurse_name)
 
-* __Doctor__ :  the candidate key is doctor_id. All other attributes are dependent on the candidate key
+
+***Checking BCNF & Decomposition***
+
+* __Doctor__ : The doctor table has a dependecy on the department name attribute, which means that there might be multiple doctors with the same name and other attributes but working in differnt departnemts. The condition for BCNF is that each attribute should have a single value, so to resolve this we need to split the Doctor table into two tables:
+
+ - __Doctor__ (***doctor_id***, doctor_name, gender, age, phone, office, salary) 
+ - __Doctor_Department__ (***doctor_id, dept_name***)
+
+Therefore,  for Doctor table the candidate key is doctor_id. All other attributes are dependent on the candidate key.
+
+and for Doctor_Department the table only contains the combination of foreign keys of Doctor and Department tables, and both of these foreign keys are a part of the primary key.
+
+
 * __Department__ : the candidate key is dept_name. All other attributes are dependent on the candidate key.
-* __Doctor_Department__ : the table only contains the combination of foreign keys of Doctor and Department tables, and both of these foreign keys are a part of the primary key.
 * __Patient__ : the candidate key is patient_id. All other attributes are dependent on the candidate key. 
 * __Inpatient__ : the candidate key is a combination of patient_id and room_no. All other attributes are dependent on the candidate key.
 * __Outpatient__ : the candidate key is patient_id. All other attributes are dependent on the candidate key. 
@@ -89,7 +97,10 @@ We need to check whether there are any functional dependencies that violate BCNF
 * __Bill__ : the candidate key is bill_no. All other attributes are dependent on the candidate key or on patient_id, which is a part of the primary key. 
 * __Nurse__: the candidate key is nurse_id. All other attributes are dependent on the candidate key. 
 
-In conclusion our relational schema is in BCNF 
+For the hospital_database these are the candidate keys for each relation: 
+
+
+In conclusion all our tables in the relational schema are in BCNF 
 
 
 
